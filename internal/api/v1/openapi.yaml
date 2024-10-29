@@ -1,0 +1,1551 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: APIService API
+    description: Описание объединенного сервиса APIService
+    version: 1.0.0
+paths:
+    /orders:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetAllOrders
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetAllOrdersResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - APIService
+            description: '------------- Orders -------------'
+            operationId: APIService_CreateOrder
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateOrderRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateOrderResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /orders/seed:
+        post:
+            tags:
+                - APIService
+            operationId: APIService_SeedOrders
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SeedOrdersRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /orders/{orderId}:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetOrder
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetOrderResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        put:
+            tags:
+                - APIService
+            operationId: APIService_UpdateOrder
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateOrderRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateOrderResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - APIService
+            operationId: APIService_DeleteOrder
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /orders/{orderId}/issue:
+        post:
+            tags:
+                - APIService
+            operationId: APIService_IssueOrder
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/IssueOrderRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /orders/{orderId}/returns:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetReturnByOrderID
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetReturnByOrderIDResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /packaging:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetAllPackaging
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetAllPackagingResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - APIService
+            description: '------------- Packaging -------------'
+            operationId: APIService_CreatePackaging
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreatePackagingRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreatePackagingResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /packaging/{packagingId}:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetPackaging
+            parameters:
+                - name: packagingId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetPackagingResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        put:
+            tags:
+                - APIService
+            operationId: APIService_UpdatePackaging
+            parameters:
+                - name: packagingId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdatePackagingRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdatePackagingResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - APIService
+            operationId: APIService_DeletePackaging
+            parameters:
+                - name: packagingId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /return-reasons:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetAllReturnReasons
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetAllReturnReasonsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - APIService
+            description: '------------- Return Reasons -------------'
+            operationId: APIService_CreateReturnReason
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateReturnReasonRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateReturnReasonResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /return-reasons/{reasonId}:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetReturnReason
+            parameters:
+                - name: reasonId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetReturnReasonResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        put:
+            tags:
+                - APIService
+            operationId: APIService_UpdateReturnReason
+            parameters:
+                - name: reasonId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateReturnReasonRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateReturnReasonResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - APIService
+            operationId: APIService_DeleteReturnReason
+            parameters:
+                - name: reasonId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /return-reasons/{reasonId}/exists:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_CheckReturnReasonExists
+            parameters:
+                - name: reasonId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CheckReturnReasonExistsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /returns:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetReturns
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetReturnsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - APIService
+            description: '------------- Return -------------'
+            operationId: APIService_CreateReturn
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateReturnRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateReturnResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /returns/process:
+        post:
+            tags:
+                - APIService
+            operationId: APIService_ProcessReturn
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProcessReturnRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /returns/{returnId}:
+        put:
+            tags:
+                - APIService
+            operationId: APIService_UpdateReturn
+            parameters:
+                - name: returnId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateReturnRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateReturnResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - APIService
+            operationId: APIService_DeleteReturn
+            parameters:
+                - name: returnId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /statuses:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetAllStatuses
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetAllStatusesResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - APIService
+            description: '------------- Statuses -------------'
+            operationId: APIService_CreateStatus
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateStatusRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateStatusResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /statuses/name/{statusName}:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetStatusByName
+            parameters:
+                - name: statusName
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetStatusByNameResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /statuses/{statusId}:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetStatusByID
+            parameters:
+                - name: statusId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetStatusByIDResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        put:
+            tags:
+                - APIService
+            operationId: APIService_UpdateStatus
+            parameters:
+                - name: statusId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateStatusRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateStatusResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - APIService
+            operationId: APIService_DeleteStatus
+            parameters:
+                - name: statusId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /statuses/{statusId}/exists:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_CheckStatusExists
+            parameters:
+                - name: statusId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CheckStatusExistsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /users:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetAllUsers
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetAllUsersResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - APIService
+            description: '------------- Users -------------'
+            operationId: APIService_CreateUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateUserResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /users/{userId}:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetUser
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetUserResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        put:
+            tags:
+                - APIService
+            operationId: APIService_UpdateUser
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateUserResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - APIService
+            operationId: APIService_DeleteUser
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /users/{userId}/exists:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_CheckUserExists
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CheckUserExistsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /users/{userId}/name:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetUserName
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetUserNameResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /users/{userId}/orders:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetOrdersByUserID
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetOrdersByUserIDResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /users/{userId}/returns:
+        get:
+            tags:
+                - APIService
+            operationId: APIService_GetReturnsByUserID
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetReturnsByUserIDResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /workers/count:
+        post:
+            tags:
+                - APIService
+            description: '------------- Worker -------------'
+            operationId: APIService_SetWorkerCount
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SetWorkerCountRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+components:
+    schemas:
+        CheckReturnReasonExistsResponse:
+            type: object
+            properties:
+                exists:
+                    type: boolean
+        CheckStatusExistsResponse:
+            type: object
+            properties:
+                exists:
+                    type: boolean
+        CheckUserExistsResponse:
+            type: object
+            properties:
+                exists:
+                    type: boolean
+        CreateOrderRequest:
+            required:
+                - userId
+                - packagingId
+                - expirationDate
+                - weight
+                - baseCost
+            type: object
+            properties:
+                userId:
+                    type: integer
+                    format: int32
+                packagingId:
+                    type: integer
+                    format: int32
+                expirationDate:
+                    type: string
+                weight:
+                    type: number
+                    format: double
+                baseCost:
+                    type: number
+                    format: double
+                withFilm:
+                    type: boolean
+            description: Order messages
+        CreateOrderResponse:
+            type: object
+            properties:
+                orderId:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+        CreatePackagingRequest:
+            required:
+                - packagingType
+                - cost
+                - maxWeight
+            type: object
+            properties:
+                packagingType:
+                    type: string
+                cost:
+                    type: number
+                    format: double
+                maxWeight:
+                    type: number
+                    format: double
+            description: Packaging messages
+        CreatePackagingResponse:
+            type: object
+            properties:
+                packagingId:
+                    type: integer
+                    format: int32
+        CreateReturnReasonRequest:
+            required:
+                - reason
+            type: object
+            properties:
+                reason:
+                    type: string
+            description: Return Reason messages
+        CreateReturnReasonResponse:
+            type: object
+            properties:
+                reasonId:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+        CreateReturnRequest:
+            required:
+                - orderId
+            type: object
+            properties:
+                orderId:
+                    type: integer
+                    format: int32
+            description: Return messages
+        CreateReturnResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        CreateStatusRequest:
+            required:
+                - statusName
+            type: object
+            properties:
+                statusName:
+                    type: string
+            description: Status messages
+        CreateStatusResponse:
+            type: object
+            properties:
+                statusId:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+        CreateUserRequest:
+            required:
+                - username
+            type: object
+            properties:
+                username:
+                    type: string
+            description: |-
+                ------------------- Сообщения -------------------
+                 User messages
+        CreateUserResponse:
+            type: object
+            properties:
+                userId:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+        GetAllOrdersResponse:
+            type: object
+            properties:
+                orders:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GetOrderResponse'
+        GetAllPackagingResponse:
+            type: object
+            properties:
+                packagingOptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Packaging'
+        GetAllReturnReasonsResponse:
+            type: object
+            properties:
+                reasons:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GetReturnReasonResponse'
+        GetAllStatusesResponse:
+            type: object
+            properties:
+                statuses:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GetStatusByIDResponse'
+        GetAllUsersResponse:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/User'
+        GetOrderResponse:
+            type: object
+            properties:
+                orderId:
+                    type: integer
+                    format: int32
+                userId:
+                    type: integer
+                    format: int32
+                packagingId:
+                    type: integer
+                    format: int32
+                statusId:
+                    type: integer
+                    format: int32
+                acceptanceDate:
+                    type: string
+                expirationDate:
+                    type: string
+                weight:
+                    type: number
+                    format: double
+                baseCost:
+                    type: number
+                    format: double
+                packagingCost:
+                    type: number
+                    format: double
+                totalCost:
+                    type: number
+                    format: double
+                withFilm:
+                    type: boolean
+                issueDate:
+                    type: string
+        GetOrdersByUserIDResponse:
+            type: object
+            properties:
+                orders:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GetOrderResponse'
+        GetPackagingResponse:
+            type: object
+            properties:
+                packagingId:
+                    type: integer
+                    format: int32
+                packagingType:
+                    type: string
+                cost:
+                    type: number
+                    format: double
+                maxWeight:
+                    type: number
+                    format: double
+        GetReturnByOrderIDResponse:
+            type: object
+            properties:
+                returnInfo:
+                    $ref: '#/components/schemas/ReturnResponse'
+        GetReturnReasonResponse:
+            type: object
+            properties:
+                reasonId:
+                    type: integer
+                    format: int32
+                reason:
+                    type: string
+        GetReturnsByUserIDResponse:
+            type: object
+            properties:
+                returns:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ReturnResponse'
+        GetReturnsResponse:
+            type: object
+            properties:
+                returns:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ReturnResponse'
+        GetStatusByIDResponse:
+            type: object
+            properties:
+                statusId:
+                    type: integer
+                    format: int32
+                statusName:
+                    type: string
+        GetStatusByNameResponse:
+            type: object
+            properties:
+                statusId:
+                    type: integer
+                    format: int32
+                statusName:
+                    type: string
+        GetUserNameResponse:
+            type: object
+            properties:
+                username:
+                    type: string
+        GetUserResponse:
+            type: object
+            properties:
+                userId:
+                    type: integer
+                    format: int32
+                username:
+                    type: string
+                createdAt:
+                    type: string
+        GoogleProtobufAny:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        IssueOrderRequest:
+            required:
+                - orderId
+            type: object
+            properties:
+                orderId:
+                    type: integer
+                    format: int32
+        Packaging:
+            type: object
+            properties:
+                packagingId:
+                    type: integer
+                    format: int32
+                packagingType:
+                    type: string
+                cost:
+                    type: number
+                    format: double
+                maxWeight:
+                    type: number
+                    format: double
+        ProcessReturnRequest:
+            required:
+                - orderId
+            type: object
+            properties:
+                orderId:
+                    type: integer
+                    format: int32
+        ReturnResponse:
+            type: object
+            properties:
+                returnId:
+                    type: integer
+                    format: int32
+                orderId:
+                    type: integer
+                    format: int32
+                userId:
+                    type: integer
+                    format: int32
+                reasonId:
+                    type: integer
+                    format: int32
+                baseCost:
+                    type: number
+                    format: float
+                packagingCost:
+                    type: number
+                    format: float
+                totalCost:
+                    type: number
+                    format: float
+                packagingId:
+                    type: integer
+                    format: int32
+                statusId:
+                    type: integer
+                    format: int32
+                returnDate:
+                    type: string
+        SeedOrdersRequest:
+            required:
+                - count
+            type: object
+            properties:
+                count:
+                    type: integer
+                    format: int32
+        SetWorkerCountRequest:
+            required:
+                - count
+            type: object
+            properties:
+                count:
+                    type: integer
+                    format: int32
+            description: Worker messages
+        Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GoogleProtobufAny'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        UpdateOrderRequest:
+            required:
+                - orderId
+                - userId
+                - packagingId
+                - statusId
+                - expirationDate
+                - weight
+                - baseCost
+            type: object
+            properties:
+                orderId:
+                    type: integer
+                    format: int32
+                userId:
+                    type: integer
+                    format: int32
+                packagingId:
+                    type: integer
+                    format: int32
+                statusId:
+                    type: integer
+                    format: int32
+                expirationDate:
+                    type: string
+                weight:
+                    type: number
+                    format: double
+                baseCost:
+                    type: number
+                    format: double
+                packagingCost:
+                    type: number
+                    format: double
+                totalCost:
+                    type: number
+                    format: double
+                withFilm:
+                    type: boolean
+                issueDate:
+                    type: string
+        UpdateOrderResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        UpdatePackagingRequest:
+            required:
+                - packagingId
+                - packagingType
+                - cost
+                - maxWeight
+            type: object
+            properties:
+                packagingId:
+                    type: integer
+                    format: int32
+                packagingType:
+                    type: string
+                cost:
+                    type: number
+                    format: double
+                maxWeight:
+                    type: number
+                    format: double
+        UpdatePackagingResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        UpdateReturnReasonRequest:
+            required:
+                - reasonId
+                - reason
+            type: object
+            properties:
+                reasonId:
+                    type: integer
+                    format: int32
+                reason:
+                    type: string
+        UpdateReturnReasonResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        UpdateReturnRequest:
+            required:
+                - returnId
+                - orderId
+                - userId
+                - reasonId
+                - baseCost
+                - packagingCost
+                - totalCost
+                - statusId
+            type: object
+            properties:
+                returnId:
+                    type: integer
+                    format: int32
+                orderId:
+                    type: integer
+                    format: int32
+                userId:
+                    type: integer
+                    format: int32
+                reasonId:
+                    type: integer
+                    format: int32
+                baseCost:
+                    type: number
+                    format: float
+                packagingCost:
+                    type: number
+                    format: float
+                totalCost:
+                    type: number
+                    format: float
+                packagingId:
+                    type: integer
+                    format: int32
+                statusId:
+                    type: integer
+                    format: int32
+        UpdateReturnResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        UpdateStatusRequest:
+            required:
+                - statusId
+                - statusName
+            type: object
+            properties:
+                statusId:
+                    type: integer
+                    format: int32
+                statusName:
+                    type: string
+        UpdateStatusResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        UpdateUserRequest:
+            required:
+                - userId
+                - username
+            type: object
+            properties:
+                userId:
+                    type: integer
+                    format: int32
+                username:
+                    type: string
+        UpdateUserResponse:
+            type: object
+            properties:
+                message:
+                    type: string
+        User:
+            type: object
+            properties:
+                userId:
+                    type: integer
+                    format: int32
+                username:
+                    type: string
+                createdAt:
+                    type: string
+tags:
+    - name: APIService
+
+servers:
+  - url: http://localhost:8080
+    description: "Local HTTP Gateway"
