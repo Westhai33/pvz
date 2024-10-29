@@ -1,0 +1,13 @@
+linters:
+  - id: ddl
+    description: "Linting for DDL (Data Definition Language) scripts"
+    rules:
+      - id: no-multi-line
+        description: "Запрещает многострочные комментарии"
+        severity: error
+      - id: no-redundant
+        description: "Запрещает избыточные конструкции в SQL-запросах"
+        severity: warning
+      - id: check-for-unique
+        description: "Проверяет наличие уникальных ограничений на ключах"
+        severity: error

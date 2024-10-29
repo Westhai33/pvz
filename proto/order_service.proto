@@ -1,0 +1,694 @@
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "internal/api/v1";
+
+import "google/api/field_behavior.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Unified API Service";
+    version: "1.0.0";
+    description: "Объединенный сервис для работы с пользователями, заказами, возвратами, упаковками и воркерами.";
+  };
+  host: "localhost:7000";
+  schemes: HTTP;
+  consumes: "application/json";
+  produces: "application/json";
+  security_definitions: {
+    security: {
+      key: "api-token";
+      value: {
+        in: IN_HEADER;
+        type: TYPE_API_KEY;
+        name: "x-api-token";
+        description: "Авторизационный токен";
+      }
+    };
+  };
+};
+
+// Описание объединенного сервиса APIService
+service APIService {
+
+  // ------------- Users -------------
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/users"
+      body: "*"
+    };
+  }
+
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/users/{user_id}"
+    };
+  }
+
+  rpc GetAllUsers(google.protobuf.Empty) returns (GetAllUsersResponse) {
+    option (google.api.http) = {
+      get: "/users"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      put: "/users/{user_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/users/{user_id}"
+    };
+  }
+
+  rpc GetUserName(GetUserNameRequest) returns (GetUserNameResponse) {
+    option (google.api.http) = {
+      get: "/users/{user_id}/name"
+    };
+  }
+
+  rpc CheckUserExists(CheckUserExistsRequest) returns (CheckUserExistsResponse) {
+    option (google.api.http) = {
+      get: "/users/{user_id}/exists"
+    };
+  }
+
+  // ------------- Orders -------------
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {
+    option (google.api.http) = {
+      post: "/orders"
+      body: "*"
+    };
+  }
+
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse) {
+    option (google.api.http) = {
+      get: "/orders/{order_id}"
+    };
+  }
+
+  rpc GetAllOrders(google.protobuf.Empty) returns (GetAllOrdersResponse) {
+    option (google.api.http) = {
+      get: "/orders"
+    };
+  }
+
+  rpc UpdateOrder(UpdateOrderRequest) returns (UpdateOrderResponse) {
+    option (google.api.http) = {
+      put: "/orders/{order_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteOrder(DeleteOrderRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/orders/{order_id}"
+    };
+  }
+
+  rpc GetOrdersByUserID(GetOrdersByUserIDRequest) returns (GetOrdersByUserIDResponse) {
+    option (google.api.http) = {
+      get: "/users/{user_id}/orders"
+    };
+  }
+
+  rpc IssueOrder(IssueOrderRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/orders/{order_id}/issue"
+      body: "*"
+    };
+  }
+
+  rpc SeedOrders(SeedOrdersRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/orders/seed"
+      body: "*"
+    };
+  }
+
+  // ------------- Packaging -------------
+  rpc CreatePackaging(CreatePackagingRequest) returns (CreatePackagingResponse) {
+    option (google.api.http) = {
+      post: "/packaging"
+      body: "*"
+    };
+  }
+
+  rpc GetPackaging(GetPackagingRequest) returns (GetPackagingResponse) {
+    option (google.api.http) = {
+      get: "/packaging/{packaging_id}"
+    };
+  }
+
+  rpc GetAllPackaging(google.protobuf.Empty) returns (GetAllPackagingResponse) {
+    option (google.api.http) = {
+      get: "/packaging"
+    };
+  }
+
+  rpc UpdatePackaging(UpdatePackagingRequest) returns (UpdatePackagingResponse) {
+    option (google.api.http) = {
+      put: "/packaging/{packaging_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeletePackaging(DeletePackagingRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/packaging/{packaging_id}"
+    };
+  }
+
+  // ------------- Return -------------
+  rpc CreateReturn(CreateReturnRequest) returns (CreateReturnResponse) {
+    option (google.api.http) = {
+      post: "/returns"
+      body: "*"
+    };
+  }
+
+  rpc GetReturns(google.protobuf.Empty) returns (GetReturnsResponse) {
+    option (google.api.http) = {
+      get: "/returns"
+    };
+  }
+
+  rpc GetReturnByOrderID(GetReturnByOrderIDRequest) returns (GetReturnByOrderIDResponse) {
+    option (google.api.http) = {
+      get: "/orders/{order_id}/returns"
+    };
+  }
+
+  rpc GetReturnsByUserID(GetReturnsByUserIDRequest) returns (GetReturnsByUserIDResponse) {
+    option (google.api.http) = {
+      get: "/users/{user_id}/returns"
+    };
+  }
+
+  rpc UpdateReturn(UpdateReturnRequest) returns (UpdateReturnResponse) {
+    option (google.api.http) = {
+      put: "/returns/{return_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteReturn(DeleteReturnRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/returns/{return_id}"
+    };
+  }
+
+  rpc ProcessReturn(ProcessReturnRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/returns/process"
+      body: "*"
+    };
+  }
+
+  // ------------- Return Reasons -------------
+  rpc CreateReturnReason(CreateReturnReasonRequest) returns (CreateReturnReasonResponse) {
+    option (google.api.http) = {
+      post: "/return-reasons"
+      body: "*"
+    };
+  }
+
+  rpc GetReturnReason(GetReturnReasonRequest) returns (GetReturnReasonResponse) {
+    option (google.api.http) = {
+      get: "/return-reasons/{reason_id}"
+    };
+  }
+
+  rpc GetAllReturnReasons(google.protobuf.Empty) returns (GetAllReturnReasonsResponse) {
+    option (google.api.http) = {
+      get: "/return-reasons"
+    };
+  }
+
+  rpc UpdateReturnReason(UpdateReturnReasonRequest) returns (UpdateReturnReasonResponse) {
+    option (google.api.http) = {
+      put: "/return-reasons/{reason_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteReturnReason(DeleteReturnReasonRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/return-reasons/{reason_id}"
+    };
+  }
+
+  rpc CheckReturnReasonExists(CheckReturnReasonExistsRequest) returns (CheckReturnReasonExistsResponse) {
+    option (google.api.http) = {
+      get: "/return-reasons/{reason_id}/exists"
+    };
+  }
+
+  // ------------- Statuses -------------
+  rpc CreateStatus(CreateStatusRequest) returns (CreateStatusResponse) {
+    option (google.api.http) = {
+      post: "/statuses"
+      body: "*"
+    };
+  }
+
+  rpc GetStatusByID(GetStatusByIDRequest) returns (GetStatusByIDResponse) {
+    option (google.api.http) = {
+      get: "/statuses/{status_id}"
+    };
+  }
+
+  rpc GetAllStatuses(google.protobuf.Empty) returns (GetAllStatusesResponse) {
+    option (google.api.http) = {
+      get: "/statuses"
+    };
+  }
+
+  rpc UpdateStatus(UpdateStatusRequest) returns (UpdateStatusResponse) {
+    option (google.api.http) = {
+      put: "/statuses/{status_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteStatus(DeleteStatusRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/statuses/{status_id}"
+    };
+  }
+
+  rpc GetStatusByName(GetStatusByNameRequest) returns (GetStatusByNameResponse) {
+    option (google.api.http) = {
+      get: "/statuses/name/{status_name}"
+    };
+  }
+
+  rpc CheckStatusExists(CheckStatusExistsRequest) returns (CheckStatusExistsResponse) {
+    option (google.api.http) = {
+      get: "/statuses/{status_id}/exists"
+    };
+  }
+
+  // ------------- Worker -------------
+  rpc SetWorkerCount(SetWorkerCountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/workers/count"
+      body: "*"
+    };
+  }
+}
+
+// ------------------- Сообщения -------------------
+// User messages
+message CreateUserRequest {
+  string username = 1 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message CreateUserResponse {
+  int32 user_id = 1;
+  string message = 2;
+}
+
+message GetUserRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetUserResponse {
+  int32 user_id = 1;
+  string username = 2;
+  string created_at = 3;
+}
+
+message GetAllUsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  int32 user_id = 1;
+  string username = 2;
+  string created_at = 3;
+}
+
+message UpdateUserRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  string username = 2 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateUserResponse {
+  string message = 1;
+}
+
+message DeleteUserRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetUserNameRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetUserNameResponse {
+  string username = 1;
+}
+
+message CheckUserExistsRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message CheckUserExistsResponse {
+  bool exists = 1;
+}
+
+// Order messages
+message CreateOrderRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 packaging_id = 2 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  string expiration_date = 3 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+  double weight = 4 [(validate.rules).double.gt = 0, (google.api.field_behavior) = REQUIRED];
+  double base_cost = 5 [(validate.rules).double.gte = 0, (google.api.field_behavior) = REQUIRED];
+  bool with_film = 6 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message CreateOrderResponse {
+  int32 order_id = 1;
+  string message = 2;
+}
+
+message GetOrderRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetOrderResponse {
+  int32 order_id = 1;
+  int32 user_id = 2;
+  int32 packaging_id = 3;
+  int32 status_id = 4;
+  string acceptance_date = 5;
+  string expiration_date = 6;
+  double weight = 7;
+  double base_cost = 8;
+  double packaging_cost = 9;
+  double total_cost = 10;
+  bool with_film = 11 [(google.api.field_behavior) = OPTIONAL];
+  string issue_date = 12 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message GetAllOrdersResponse {
+  repeated GetOrderResponse orders = 1;
+}
+
+message UpdateOrderRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 user_id = 2 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 packaging_id = 3 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 status_id = 4 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  string expiration_date = 5 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+  double weight = 6 [(validate.rules).double.gt = 0, (google.api.field_behavior) = REQUIRED];
+  double base_cost = 7 [(validate.rules).double.gte = 0, (google.api.field_behavior) = REQUIRED];
+  double packaging_cost = 8 [(validate.rules).double.gte = 0, (google.api.field_behavior) = OPTIONAL];
+  double total_cost = 9 [(validate.rules).double.gte = 0, (google.api.field_behavior) = OPTIONAL];
+  bool with_film = 10 [(google.api.field_behavior) = OPTIONAL];
+  string issue_date = 11 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message UpdateOrderResponse {
+  string message = 1;
+}
+
+message DeleteOrderRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetOrdersByUserIDRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetOrdersByUserIDResponse {
+  repeated GetOrderResponse orders = 1;
+}
+
+message SeedOrdersRequest {
+  int32 count = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message SeedOrdersResponse {
+  string message = 1;
+}
+
+message IssueOrderRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message IssueOrderResponse {
+  string message = 1;
+}
+
+// Packaging messages
+message CreatePackagingRequest {
+  string packaging_type = 1 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+  double cost = 2 [(validate.rules).double.gte = 0, (google.api.field_behavior) = REQUIRED];
+  double max_weight = 3 [(validate.rules).double.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message CreatePackagingResponse {
+  int32 packaging_id = 1;
+}
+
+message GetPackagingRequest {
+  int32 packaging_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetPackagingResponse {
+  int32 packaging_id = 1;
+  string packaging_type = 2;
+  double cost = 3;
+  double max_weight = 4;
+}
+
+message GetAllPackagingResponse {
+  repeated Packaging packaging_options = 1;
+}
+
+message Packaging {
+  int32 packaging_id = 1;
+  string packaging_type = 2;
+  double cost = 3;
+  double max_weight = 4;
+}
+
+message UpdatePackagingRequest {
+  int32 packaging_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  string packaging_type = 2 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+  double cost = 3 [(validate.rules).double.gte = 0, (google.api.field_behavior) = REQUIRED];
+  double max_weight = 4 [(validate.rules).double.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message UpdatePackagingResponse {
+  string message = 1;
+}
+
+message DeletePackagingRequest {
+  int32 packaging_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message DeletePackagingResponse {
+  string message = 1;
+}
+
+// Return messages
+message CreateReturnRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message CreateReturnResponse {
+  string message = 1;
+}
+
+message GetReturnsResponse {
+  repeated ReturnResponse returns = 1;
+}
+
+message GetReturnByOrderIDRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetReturnByOrderIDResponse {
+  ReturnResponse return_info = 1;
+}
+
+message GetReturnsByUserIDRequest {
+  int32 user_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetReturnsByUserIDResponse {
+  repeated ReturnResponse returns = 1;
+}
+
+message UpdateReturnRequest {
+  int32 return_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 order_id = 2 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 user_id = 3 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  int32 reason_id = 4 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  float base_cost = 5 [(validate.rules).float.gte = 0, (google.api.field_behavior) = REQUIRED];
+  float packaging_cost = 6 [(validate.rules).float.gte = 0, (google.api.field_behavior) = REQUIRED];
+  float total_cost = 7 [(validate.rules).float.gte = 0, (google.api.field_behavior) = REQUIRED];
+  int32 packaging_id = 8 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = OPTIONAL];
+  int32 status_id = 9 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateReturnResponse {
+  string message = 1;
+}
+
+message DeleteReturnRequest {
+  int32 return_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteReturnResponse {
+  string message = 1;
+}
+
+message ReturnResponse {
+  int32 return_id = 1;
+  int32 order_id = 2;
+  int32 user_id = 3;
+  int32 reason_id = 4;
+  float base_cost = 5;
+  float packaging_cost = 6;
+  float total_cost = 7;
+  int32 packaging_id = 8;
+  int32 status_id = 9;
+  string return_date = 10;
+}
+
+message ProcessReturnRequest {
+  int32 order_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message ProcessReturnResponse {
+  string message = 1;
+}
+
+// Return Reason messages
+message CreateReturnReasonRequest {
+  string reason = 1 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message CreateReturnReasonResponse {
+  int32 reason_id = 1;
+  string message = 2;
+}
+
+message GetReturnReasonRequest {
+  int32 reason_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetReturnReasonResponse {
+  int32 reason_id = 1;
+  string reason = 2;
+}
+
+message GetAllReturnReasonsResponse {
+  repeated GetReturnReasonResponse reasons = 1;
+}
+
+message UpdateReturnReasonRequest {
+  int32 reason_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  string reason = 2 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateReturnReasonResponse {
+  string message = 1;
+}
+
+message DeleteReturnReasonRequest {
+  int32 reason_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteReturnReasonResponse {
+  string message = 1;
+}
+
+message CheckReturnReasonExistsRequest {
+  int32 reason_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message CheckReturnReasonExistsResponse {
+  bool exists = 1;
+}
+
+// Status messages
+message CreateStatusRequest {
+  string status_name = 1 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message CreateStatusResponse {
+  int32 status_id = 1;
+  string message = 2;
+}
+
+message GetStatusByIDRequest {
+  int32 status_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetStatusByIDResponse {
+  int32 status_id = 1;
+  string status_name = 2;
+}
+
+message GetAllStatusesRequest {}
+
+message GetAllStatusesResponse {
+  repeated GetStatusByIDResponse statuses = 1;
+}
+
+
+message UpdateStatusRequest {
+  int32 status_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+  string status_name = 2 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateStatusResponse {
+  string message = 1;
+}
+
+message DeleteStatusRequest {
+  int32 status_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteStatusResponse {
+  string message = 1;
+}
+
+message GetStatusByNameRequest {
+  string status_name = 1 [(validate.rules).string.min_len = 1, (google.api.field_behavior) = REQUIRED];
+}
+
+message GetStatusByNameResponse {
+  int32 status_id = 1;
+  string status_name = 2;
+}
+
+message CheckStatusExistsRequest {
+  int32 status_id = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message CheckStatusExistsResponse {
+  bool exists = 1;
+}
+
+// Worker messages
+message SetWorkerCountRequest {
+  int32 count = 1 [(validate.rules).int32.gt = 0, (google.api.field_behavior) = REQUIRED];
+}
+
+message SetWorkerCountResponse {
+  int32 new_count = 1;
+}

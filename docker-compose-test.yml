@@ -1,0 +1,18 @@
+version: '3.1'
+
+volumes:
+  postgresql_data:
+
+services:
+  test_db:
+    image: postgres:15-alpine
+    container_name: test_db
+    ports:
+      - "5433:5432" # Локальный порт 5433 будет связан с портом 5432 в контейнере
+    restart: always
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=test_db # Название базы данных
+      - POSTGRES_USER=postgres # Имя пользователя для базы данных
+      - POSTGRES_PASSWORD=postgres # Пароль для базы данных
